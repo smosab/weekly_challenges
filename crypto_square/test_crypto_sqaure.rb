@@ -1,54 +1,56 @@
+require 'pry'
 require 'minitest/autorun'
 require_relative 'crypto_square'
 
 class CryptoTest < Minitest::Test
   def test_normalize_strange_characters
+    skip
     crypto = Crypto.new('s#$%^&plunk')
     assert_equal 'splunk', crypto.normalize
   end
 
   def test_normalize_uppercase_characters
-    # skip
+    skip
     crypto = Crypto.new('WHOA HEY!')
     assert_equal 'whoahey', crypto.normalize
   end
 
   def test_normalize_with_numbers
-    # skip
+    skip
     crypto = Crypto.new('1, 2, 3 GO!')
     assert_equal '123go', crypto.normalize
   end
 
   def test_size_of_small_square
-    # skip
+    skip
     crypto = Crypto.new('1234')
     assert_equal 2, crypto.size
   end
 
   def test_size_of_slightly_larger_square
-    # skip
+    skip
     crypto = Crypto.new('123456789')
     assert_equal 3, crypto.size
   end
 
   def test_size_of_non_perfect_square
-    # skip
+    skip
     crypto = Crypto.new('123456789abc')
     assert_equal 4, crypto.size
   end
 
   def test_size_is_determined_by_normalized_plaintext
-    # skip
+    skip
     crypto = Crypto.new('Oh hey, this is nuts!')
     assert_equal 4, crypto.size
   end
 
-  # def test_plaintext_segments
-  #   skip
-  #   crypto = Crypto.new('Never vex thine heart with idle woes')
-  #   expected = %w(neverv exthin eheart withid lewoes)
-  #   assert_equal expected, crypto.plaintext_segments
-  # end
+  def test_plaintext_segments
+    # skip
+    crypto = Crypto.new('Never vex thine heart with idle woes')
+    expected = %w(neverv exthin eheart withid lewoes)
+    assert_equal expected, crypto.plaintext_segments
+  end
 
   # def test_other_plaintext_segments
   #   skip
