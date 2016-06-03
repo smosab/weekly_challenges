@@ -14,15 +14,14 @@ class Translation
   end
 
   def self.of_rna(strand)
-
-    raise InvalidCodonError unless !strand.match(/[AUGC]/)
+    raise InvalidCodonError if strand.match(/[^AUGC]/)
 
     protein = []
     strand.scan(/[AUGC]{3}/).each do |codon|
       break unless CODONS[codon.to_sym] != "STOP"
       protein << CODONS[codon.to_sym]
     end
-    p protein
+    binding.pry
   end
 end
 

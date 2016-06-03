@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require_relative 'protein_translation'
+# require_relative 'protein_test'
 
 # rubocop:disable Style/MethodName
 class TranslationTest < Minitest::Test
@@ -74,7 +75,7 @@ class TranslationTest < Minitest::Test
   end
 
   def test_invalid_codons
-    skip
+    # skip
     strand = 'CARROT'
     assert_raises(InvalidCodonError) do
       Translation.of_rna(strand)
