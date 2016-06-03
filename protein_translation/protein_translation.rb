@@ -1,5 +1,9 @@
 require 'pry'
 
+class InvalidCodonError < StandardError
+end
+
+
 class Translation
   attr_accessor :rna
 
@@ -10,13 +14,12 @@ class Translation
   end
 
   def self.of_rna(strand)
-    # binding.pry
-    invalidcodonerror = Exception.new("Invalid Codon")
-    raise invalidcodonerror unless !strand.match(/[AUGC]/)
+
+    raise InvalidCodonError unless !strand.match(/[AUGC]/)
 
     protein = []
     strand.scan(/[AUGC]{3}/).each do |codon|
-      next unless CODONS[codon.to_sym] != "STOP"
+      break unless CODONS[codon.to_sym] != "STOP"
       protein << CODONS[codon.to_sym]
     end
     p protein
