@@ -1,22 +1,20 @@
 require 'pry'
 
 class House
+  
+  def self.recite
+    n = 1
 
-  # def self.recite
-  #   constant = "This is "
-  #   n = 1
+    loop do
+      puts "This is #{pieces.reverse[0,n].reverse.join("\n")}\n\n"
+      n += 1
+        break if n > pieces.size
+    end
+  end
 
-  #   loop do
-  #     binding.pry
-  #     puts pieces.reverse[0,n].reverse
-  #     n += 1
-  #      break if n > pieces.size
-  #   end
-  # end
-
-  # private
-
-  def pieces
+  private
+  
+    def self.pieces
     [
       ['the horse and the hound and the horn', 'that belonged to'],
       ['the farmer sowing his corn', 'that kept'],
@@ -32,7 +30,7 @@ class House
       ['the house that Jack built']
     ]
   end
-  binding.pry
+
 end
 
-House
+House.recite
