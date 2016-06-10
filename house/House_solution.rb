@@ -1,33 +1,20 @@
-require 'pry'
-
 class House
-
   def self.recite
-    n = 0
-    pieces_str = ''
-    output = ''
-    loop do
-    
-    if n == 0
-      output = "This is " + pieces.reverse[n][n] + "." + "\n\n"
-      pieces_str = pieces.reverse[n][n] + "."
-      n += 1
-    else
-      pieces_str = pieces.reverse[n][1] + ' ' + pieces_str
-      output += "This is " + pieces.reverse[n][0] + "\n"
-      output += pieces_str 
-      pieces_str = pieces.reverse[n][0] + "\n" + pieces_str
-      output += "\n\n" unless n >= pieces.size - 1
-      n += 1
-        break if n >= pieces.size
-      end
-    end
-    output += "\n"
+    verse = (1..pieces.size)
+              .map {|number| pieces.last(number)}
+              .map {|pieces| combine_pieces(pieces)}
+              .join("\n\n")
+    verse + "\n"
+  end
+
+  def self.combine_pieces(pieces)
+    paragraph = pieces.map{|piece| piece.join("\n")}.join(" ")
+    "This is #{paragraph}."
   end
 
   private
-  
-    def self.pieces
+
+  def self.pieces
     [
       ['the horse and the hound and the horn', 'that belonged to'],
       ['the farmer sowing his corn', 'that kept'],
@@ -43,7 +30,4 @@ class House
       ['the house that Jack built']
     ]
   end
-
 end
-
-House.recite
