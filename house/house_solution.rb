@@ -1,3 +1,5 @@
+require 'pry'
+
 class House
   def self.recite
     verse = (1..pieces.size)
@@ -8,6 +10,7 @@ class House
   end
 
   def self.combine_pieces(pieces)
+    binding.pry
     paragraph = pieces.map{|piece| piece.join("\n")}.join(" ")
     "This is #{paragraph}."
   end
@@ -31,3 +34,5 @@ class House
     ]
   end
 end
+
+puts House.recite
