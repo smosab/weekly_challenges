@@ -1,30 +1,28 @@
- First 13 letters: A|B|C|D|E|F|G|H|I|J|K|L|M
- Last 13 letters:  Z|Y|X|W|V|U|T|S|R|Q|P|O|N
-
-#store letters in a hash
-
 class Atbash
-  @@atbash_pairs = {'a'=>'z','b'=>'y','c'=>'x','d'=>'w','e'=>'v','f'=>'u','g'=>'t','h'=>'s','i'=>'r','j'=>'q','k'=>'p','l'=>'o','m'=>'n','z'=>'a','y'=>'b','x'=>'c','w'=>'d','v'=>'e','u'=>'f','t'=>'g','s'=>'h','r'=>'i','q'=>'j','p'=>'k','o'=>'l','n'=>'m'}
+  FIRST_LAST_13 = [('a'..'m').to_a].concat([('n'..'z').to_a.reverse])
+  LAST_FIRST_13 = FIRST_LAST_13.reverse
+  @atbash_pairs = FIRST_LAST_13
+                  .transpose
+                  .to_h
+                  .merge(LAST_FIRST_13.transpose.to_h)
 
-  attr_accessor :string
+  class << self; attr_accessor :encoded_string, :scrubbed_string end
 
-  def initialize(string = '')
-    @string = string
+  def self.encode(string)
+    scrub(string)
+    @encoded_string = scrubbed_string.map do |char|
+      char =~ /[0-9]/ ? char : @atbash_pairs[char]
+    end
+    group_into_five(encoded_string)
   end
 
-  def encode(string)
-    format_string(string)
-
-    # encode string
+  def self.scrub(string)
+    @scrubbed_string = string.downcase.gsub(/[^a-z0-9]/, '').split('')
   end
 
-  def format_string(string)
-    # evaluate input string
-
-    # step 1 downcase and remove spaces
-    # step 2 convert into an array
-    string = string.downcase.gsub(' ','').split('')
+  def self.group_into_five(encoded_string)
+    final_string = []
+    encoded_string.each_slice(5) { |slice| final_string << slice.join }
+    final_string.join(' ')
   end
-
-
 end
